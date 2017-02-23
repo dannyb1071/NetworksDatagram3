@@ -1,13 +1,13 @@
 package networks2voip2;
 
 /*
- * TextSender.java
+ * AudioSenderThread.java
  *
  * Created on 15 January 2003, 15:29
  */
 /**
  *
- * @author Danny
+ * @author Callum Basford
  */
 import CMPC3M06.AudioRecorder;
 import uk.ac.uea.cmp.voip.DatagramSocket2;
@@ -15,8 +15,10 @@ import uk.ac.uea.cmp.voip.DatagramSocket3;
 import uk.ac.uea.cmp.voip.DatagramSocket4;
 
 import javax.sound.sampled.LineUnavailableException;
+import java.lang.reflect.Array;
 import java.net.*;
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.*;
 
 public class AudioSenderThread implements Runnable {
@@ -80,19 +82,6 @@ public class AudioSenderThread implements Runnable {
         while (running) {
             try {
 
-                /*
-            Packet loss testing
-            count = new byte[] {(byte)a};
-            DatagramPacket packet = new DatagramPacket(count, count.length, clientIP, PORT);
-            sending_socket.send(packet);
-            total++;
-            if(total == 10000){
-                running = false;
-            }*/
-
-
-
-                /*Socket 2*/
                 ArrayList<Byte> data = new ArrayList<>();
                 byte[] block = recorder.getBlock();
                 data.add((byte)packetCount);
@@ -119,6 +108,21 @@ public class AudioSenderThread implements Runnable {
                         int pos = y*4 + (3-x);
                         sending_socket.send(packets.get(pos));
                     }
+//                    sending_socket.send(packets.get(3));
+//                    sending_socket.send(packets.get(7));
+//                    sending_socket.send(packets.get(11));
+//                    sending_socket.send(packets.get(15));
+//                    sending_socket.send(packets.get(2));
+//                    sending_socket.send(packets.get(6));
+//                    sending_socket.send(packets.get(10));
+//                    sending_socket.send(packets.get(14));
+//                    sending_socket.send(packets.get(1));
+//                    sending_socket.send(packets.get(5));
+//                    sending_socket.send(packets.get(9));
+//                    sending_socket.send(packets.get(13));
+//                    sending_socket.send(packets.get(0));
+//                    sending_socket.send(packets.get(8));
+//                    sending_socket.send(packets.get(12));
                     packets.clear();
                     sendCount++;
                 }
