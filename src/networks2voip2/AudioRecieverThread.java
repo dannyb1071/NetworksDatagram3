@@ -60,6 +60,8 @@ public class AudioRecieverThread implements Runnable {
         byte[] test = new byte[1];
         DatagramPacket saved = null;
         ArrayList<DatagramPacket> packets = new ArrayList<>();
+        ArrayList<DatagramPacket> buf = new ArrayList<>();
+        boolean doubled = false;
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -71,8 +73,16 @@ public class AudioRecieverThread implements Runnable {
                 DatagramPacket packet = new DatagramPacket(buffer, 0, 514);
                 receiving_socket.receive(packet);
 
+                System.out.println("received " + packet.getData()[0] + " in " + packet.getData()[1]);
+
                 if (packet.getData()[1] == recieveCount) {
                     packets.add(packet);
+                } else if(!doubled) {
+                    if(packet.getData()[1] == recieveCount+1) {
+                        buf.add(packet);
+                    } else{
+                        doubled = true;
+                    }
                 } else {
                     for (int i = 0; i < packets.size(); i++) {
                         packs[packets.get(i).getData()[0]] = packets.get(i);
@@ -82,13 +92,17 @@ public class AudioRecieverThread implements Runnable {
                         recieveCount = 0;
                     }
                     packets.clear();
-                    packets.add(packet);
+                    packets.addAll(buf);
+                    buf.clear();
+                    buf.add(packet);
+                    doubled = false;
                     for (int x = 0; x < packs.length; x++) {
+
                         if (packs[x] != null) {
 //                            System.out.println("True");
                             System.arraycopy(packs[x].getData(), 2, playback, 0, 512);
                             num = packs[x].getData()[0];
-//                            System.out.println("Played " + num + " in " + packs[x].getData()[1]);
+                            System.out.println("Played " + num + " in " + packs[x].getData()[1]);
                             player.playBlock(playback);
                             playback = new byte[512];
                         } else {
@@ -96,14 +110,14 @@ public class AudioRecieverThread implements Runnable {
                                 if (j > x) {
                                     System.arraycopy(saved.getData(), 2, playback, 0, 512);
                                     num = saved.getData()[0];
-//                                    System.out.println("Played " + num + " in " + saved.getData()[1]);
+                                   System.out.println("Played " + num + " in " + saved.getData()[1]);
                                     player.playBlock(playback);
                                     playback = new byte[512];
                                     break;
                                 } else if (packs[x - j] != null) {
                                     System.arraycopy(packs[x - j].getData(), 2, playback, 0, 512);
                                     num = packs[x - j].getData()[0];
-//                                    System.out.println("Played " +num + " in " + packs[x-j].getData()[1]);
+                                   System.out.println("Played " +num + " in " + packs[x-j].getData()[1]);
                                     player.playBlock(playback);
                                     playback = new byte[512];
                                     break;
