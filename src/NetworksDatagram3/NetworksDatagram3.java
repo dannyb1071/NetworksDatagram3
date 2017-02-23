@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package networks2voip2;
+package NetworksDatagram3;
 
 /**
  *
  * @author Danny
  */
-public class Networks2voip2 {
+public class NetworksDatagram3 {
 
     /**
      * @param args the command line arguments

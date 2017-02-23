@@ -1,4 +1,4 @@
-package networks2voip2;
+package NetworksDatagram3;
 
 /*
  * AudioSenderThread.java
@@ -10,15 +10,11 @@ package networks2voip2;
  * @author Callum Basford
  */
 import CMPC3M06.AudioRecorder;
-import uk.ac.uea.cmp.voip.DatagramSocket2;
 import uk.ac.uea.cmp.voip.DatagramSocket3;
-import uk.ac.uea.cmp.voip.DatagramSocket4;
 
 import javax.sound.sampled.LineUnavailableException;
-import java.lang.reflect.Array;
 import java.net.*;
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.util.*;
 
 public class AudioSenderThread implements Runnable {

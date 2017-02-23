@@ -1,23 +1,17 @@
-package networks2voip2;
+package NetworksDatagram3;
 
 import CMPC3M06.AudioPlayer;
 import java.io.BufferedReader;
-import uk.ac.uea.cmp.voip.DatagramSocket2;
+
 import uk.ac.uea.cmp.voip.DatagramSocket3;
-import uk.ac.uea.cmp.voip.DatagramSocket4;
 
 import javax.sound.sampled.LineUnavailableException;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Vector;
 
 /**
  * Created by Callum on 16/02/2017.
