@@ -97,33 +97,18 @@ public class AudioSenderThread implements Runnable {
 
                 packets.add(packet);
                 packetCount++;
-                if(packets.size() == 16){
-                    for(int i = 0; i < 16; i++){
-                        int x = i/4;
-                        int y = i%4;
-                        int pos = y*4 + (3-x);
+                if(packets.size() == 9){
+                    for(int i = 0; i < 9; i++){
+                        int x = i/3;
+                        int y = i%3;
+                        int pos = y*3 + (2-x);
                         sending_socket.send(packets.get(pos));
                     }
-//                    sending_socket.send(packets.get(3));
-//                    sending_socket.send(packets.get(7));
-//                    sending_socket.send(packets.get(11));
-//                    sending_socket.send(packets.get(15));
-//                    sending_socket.send(packets.get(2));
-//                    sending_socket.send(packets.get(6));
-//                    sending_socket.send(packets.get(10));
-//                    sending_socket.send(packets.get(14));
-//                    sending_socket.send(packets.get(1));
-//                    sending_socket.send(packets.get(5));
-//                    sending_socket.send(packets.get(9));
-//                    sending_socket.send(packets.get(13));
-//                    sending_socket.send(packets.get(0));
-//                    sending_socket.send(packets.get(8));
-//                    sending_socket.send(packets.get(12));
                     packets.clear();
                     sendCount++;
                 }
 
-                if(packetCount == 16){
+                if(packetCount == 9){
                     packetCount = 0;
                 }
                 if(sendCount == 128){

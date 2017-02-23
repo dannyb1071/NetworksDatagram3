@@ -13,9 +13,6 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-/**
- * Created by Callum on 16/02/2017.
- */
 public class AudioRecieverThread implements Runnable {
 
     static DatagramSocket receiving_socket;
@@ -63,7 +60,7 @@ public class AudioRecieverThread implements Runnable {
             try {
                 byte[] buffer = new byte[514];
                 byte[] playback = new byte[512];
-                DatagramPacket[] packs = new DatagramPacket[16];
+                DatagramPacket[] packs = new DatagramPacket[9];
                 DatagramPacket packet = new DatagramPacket(buffer, 0, 514);
                 receiving_socket.receive(packet);
 
@@ -100,7 +97,7 @@ public class AudioRecieverThread implements Runnable {
                             player.playBlock(playback);
                             playback = new byte[512];
                         } else {
-                            for (int j = 0; j < 16; j++) {
+                            for (int j = 0; j < 9; j++) {
                                 if (j > x) {
                                     System.arraycopy(saved.getData(), 2, playback, 0, 512);
                                     num = saved.getData()[0];
@@ -120,7 +117,7 @@ public class AudioRecieverThread implements Runnable {
                         }
 
                     }
-                    for (int i = 15; i >= 0; i--) {
+                    for (int i = 8; i >= 0; i--) {
                         if (packs[i] != null) {
                             saved = packs[i];
 //                            System.out.println("Saved " + i);
